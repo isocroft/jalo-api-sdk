@@ -1,0 +1,16 @@
+{
+	"name":"jalo-api-sdk",
+	"version":"0.0.1",
+	"description":"",
+	"license":"MIT",
+	"scripts":{
+		"build":"browserify index.js -d -s JaloSDK -o jalo-api.sdk.js && grunt dist-package",
+		"tests":"grunt test-package"
+	},
+	"devDependencies":{
+		"grunt":"~",
+		"grunt-contrib-jshint":"~",
+		"grunt-contrib-uglify":"~"
+	}
+	
+}

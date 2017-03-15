@@ -1,7 +1,11 @@
 
 require('./utils');
 
-var d = document,
+
+var globals = require('./globals'),
+	 w = globals.window,	
+	 d = w.document,
+ 
  __dom = {
 
  		importCSSFile:function(cfile){
@@ -19,10 +23,101 @@ var d = document,
 					  (d.getElementsByTagName("head")[0]).appendChild(newSS);
 				}
 		},
-		getScriptAttribute:function(){
-			return '';
+		getAttributeByName:function(obj, attrName){
+
+					var attributes = null;
+
+					if(!this.isNode(obj)){
+
+						return attributes;
+					}
+
+					attributes = obj.attributes;
+					
+					try {
+
+						return attributes.getNamedItem(attrName);
+						
+					}catch (ex) {
+						var i;
+						
+						for (i = 0; i < attributes.length; i++) {
+							var attr = attributes[i];
+							if (attr.nodeName == attrName 
+									&& attr.specified) {
+								return attr;
+							}
+						}
+
+						return null;
+					}
+        
+        },
+		getScriptAttribute:function(attr){
+
+			var currentScript = d.currentScript || d.scripts[d.scripts.length - 1];
+
+			return this.getAttributeByName(currentScript, attr);
 		},
+		createHiddenIframeWithForm:function(){
+			var form = d.createElement('form');
+			var iframe = d.createElement('iframe');
+			var ___done = function(){};
+			var styling = 'position:absolute;left:-9999px;top:0;';
+
+			iframe.id = '__jalo_' + (Math.random().toString(16));
+			iframe.name = iframe.id;
+
+			form.target = iframe.id;
+
+			if(this.isNodeDisconnected(form) 
+				&& !this.isNodeDisconnected(iframe)){
+					this.addListener(form, 'reset', function(e){
+
+					});
+					this.addListener(iframe, 'load', function(e){
+							___done(e);
+					});
+			}
+
+			return {
+				open:function(method, url, async){
+						form.method = method.toUpperCase();
+						form.action = url;
+
+						async = async || true;
+				},
+				setRequestHeader:function(){
+
+				},
+				getAllRespnseHeaders:function(){
+
+				},
+				abort:function(){
+
+					form.reset();
+				},
+				onreadystatechange:null,
+				send:function(params){
+					var input = null, bits = null, param = false, i = 0;
+					params = params && params.split('&') || []; // variable hoisting
+
+					for(; i < params.length; i++){
+						input = d.createElement('input');
+						param = params[i];
+						bits = (param && param.split('=')) || ['_invalid', ''];
+						input.type = 'hidden';
+						input.name = bits[0];
+						input.value = bits[1];
+						form.appendChild(input);
+					}
+
+					form.submit();
+				}
+			} 
+		}
 		getHead:function(){
+			
 			return d.head || d.documentElement.children.item(0) || d.getElementsByTagName('head')[0];
 		},
 		InternalStyleById:function (id){

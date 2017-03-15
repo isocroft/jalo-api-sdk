@@ -2,15 +2,30 @@
 	"name":"jalo-api-sdk",
 	"version":"0.0.1",
 	"description":"",
+	"keywords":"",
 	"license":"MIT",
 	"scripts":{
-		"build":"browserify index.js -d -s JaloSDK -o jalo-api.sdk.js && grunt dist-package",
-		"tests":"grunt test-package"
+		"build":"browserify index.js -d -s JaloSDK -o src/jalo-api.sdk.js && grunt dist-package",
+		"tests":"Error: \"Not tests specified\" && exit 1"
 	},
+        "engines": {
+           "node": "*"
+        },
+	"authors": [
+		{
+			"name": "Ifeora Okechukwu",
+			"email": "isocroft@gmail.com",
+                        "role": "Web Software Developer"
+		}
+	],
 	"devDependencies":{
-		"grunt":"~",
-		"grunt-contrib-jshint":"~",
-		"grunt-contrib-uglify":"~"
+		"grunt":"*",
+            	"grunt-contrib-compress":"*",
+            	"grunt-contrib-jasmine":"*",
+            	"grunt-contrib-concat":"*",
+            	"grunt-contrib-uglify":"*",
+            	"grunt-contrib-jshint":"*",
+            	"matchdep":"*"
 	}
 	
 }

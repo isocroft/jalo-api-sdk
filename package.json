@@ -2,30 +2,36 @@
 	"name":"jalo-api-sdk",
 	"version":"0.0.1",
 	"description":"",
-	"keywords":"",
+	"keywords":[
+
+	],
 	"license":"MIT",
 	"scripts":{
 		"build":"browserify index.js -d -s JaloSDK -o src/jalo-api.sdk.js && grunt dist-package",
-		"tests":"Error: \"Not tests specified\" && exit 1"
+		"test":"karma start jalo.conf.js --single-run"
 	},
-        "engines": {
-           "node": "*"
-        },
+    "engines": {
+           "node": ">= 0.10.25"
+    },
 	"authors": [
 		{
 			"name": "Ifeora Okechukwu",
 			"email": "isocroft@gmail.com",
-                        "role": "Web Software Developer"
+            "role": "Web Software Developer"
 		}
 	],
 	"devDependencies":{
 		"grunt":"*",
-            	"grunt-contrib-compress":"*",
-            	"grunt-contrib-jasmine":"*",
-            	"grunt-contrib-concat":"*",
-            	"grunt-contrib-uglify":"*",
-            	"grunt-contrib-jshint":"*",
-            	"matchdep":"*"
-	}
-	
+    	"grunt-contrib-compress":"*",
+    	"grunt-contrib-jasmine":"*",
+    	"grunt-contrib-concat":"*",
+    	"grunt-contrib-uglify":"*",
+    	"grunt-contrib-jshint":"*",
+    	"jasmine-core": "^2.2.0",
+    	"karma": "^0.12.31",
+    	"karma-firefox-launcher": "^0.1.4",
+    	"karma-jasmine": "^0.3.5",
+    	"matchdep":"*"
+	},
+	"main":"index.js"
 }
